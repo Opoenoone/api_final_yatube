@@ -46,9 +46,16 @@ class FollowSerializer(serializers.ModelSerializer):
             UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
                 fields=('user', 'following'),
-                message='Нельзя подписаться на одного пользователя дважды.'
+                message='Повторная подписка на одного пользователя невозможна.'
             )
         ]
+
+    def validate(self, data):
+        if self.context['request'].user == data['following']:
+            raise serializers.ValidationError(
+                'Невозможно подписаться на себя.'
+            )
+        return data
 
 
 class UserSerializer(serializers.ModelSerializer):

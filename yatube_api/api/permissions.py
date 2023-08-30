@@ -2,7 +2,7 @@ from rest_framework import permissions
 
 
 class IsAuthorOrReadOnly(permissions.BasePermission):
-    message = 'Измение записи доступно только автору.'
+    message = 'Вносить изменения может только автор.'
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
