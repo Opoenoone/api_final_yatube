@@ -18,27 +18,26 @@
 
 В директории с скачанным проектом нужно создать и заупстить виртуальное окружение:
 
-Установка виртуального окружения
+```Установка/активация виртуального окружения```
 
-python -m venv venv
-Активация виртуального окружения
+- python3 -m venv env
 
-команда для macOS
+- source venv/bin/activate
 
-source venv/bin/activate
-команда для Linux
+```Установка зависимостей```
 
-source venv/Scripts/activate
-команда для windows
+- python3 -m pip install --upgrade pip
 
-venv\Scripts\activate
-Установка зависимостей
+- pip install -r requirements.txt
 
-pip install -r requirements.txt
-Запуск
+```Выполнить миграции```
 
-python manage.py runserver
-Использование
+- python3 manage.py migrate
+
+```Запуск```
+
+- python manage.py runserver
+
 
 ### После запуска сервера вам будет доступна документация
-
+>http://127.0.0.1:8000/redoc
