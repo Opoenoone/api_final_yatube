@@ -69,7 +69,3 @@ Stack:
 ```REST API```
 
 ```Djoser```
-
-
-
-
