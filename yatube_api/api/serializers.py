@@ -20,7 +20,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'author', 'text', 'created', 'post')
-        read_only_fields = ('post',)
+        read_only_fields = ('post', 'author',)
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -50,18 +50,10 @@ class FollowSerializer(serializers.ModelSerializer):
             )
         ]
 
-    def validate(self, data):
-        if self.context['request'].user == data['following']:
+    def validate_following(self, value):
+        user = self.context.get('request').user
+        if user == value:
             raise serializers.ValidationError(
-                'Невозможно подписаться на себя.'
+                'Невозможно подписаться на самого себя.'
             )
-        return data
-
-
-class UserSerializer(serializers.ModelSerializer):
-    posts = serializers.StringRelatedField(many=True, read_only=True)
-
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'first_name', 'last_name')
-        ref_name = 'ReadOnlyUsers'
+        return value
