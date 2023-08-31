@@ -3,13 +3,12 @@ from rest_framework import mixins, permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.filters import SearchFilter
 
-from posts.models import Group, Follow, Post, User
+from posts.models import Group, Follow, Post
 from api.permissions import IsAuthorOrReadOnly
 from api.serializers import (CommentSerializer,
                              FollowSerializer,
                              GroupSerializer,
-                             PostSerializer,
-                            )
+                             PostSerializer,)
 
 
 class CreateListFollowViewSet(
