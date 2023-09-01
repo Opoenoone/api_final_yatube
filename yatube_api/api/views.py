@@ -5,16 +5,19 @@ from rest_framework.filters import SearchFilter
 
 from posts.models import Group, Follow, Post
 from api.permissions import IsAuthorOrReadOnly
-from api.serializers import (CommentSerializer,
-                             FollowSerializer,
-                             GroupSerializer,
-                             PostSerializer,)
+from api.serializers import (
+    CommentSerializer,
+    FollowSerializer,
+    GroupSerializer,
+    PostSerializer,
+)
 
 
 class CreateListFollowViewSet(
         mixins.CreateModelMixin,
         mixins.ListModelMixin,
-        viewsets.GenericViewSet):
+        viewsets.GenericViewSet,
+):
     pass
 
 
@@ -60,8 +63,7 @@ class FollowViewSet(CreateListFollowViewSet):
     search_fields = ('following__username', 'user__username',)
 
     def get_queryset(self):
-        new_queryset = Follow.objects.filter(user=self.request.user)
-        return new_queryset
+        return self.request.user.follower.all()
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
